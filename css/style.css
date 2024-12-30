@@ -1,0 +1,74 @@
+/* general =======================*/
+:root {
+    --main-color: rgb(21, 83, 255);
+}
+
+.main-color {
+    color: var(--main-color) !important;
+}
+
+.main-color-bg {
+    background-color: var(--main-color) !important;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+
+/* admin screen =======================*/
+.table td img {
+    width: 100px;
+}
+
+.table-responsive {
+    overflow-x: auto !important;
+}
+
+/* user modal =======================*/
+
+.image {
+    position: relative;
+    padding-right: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.upload input {
+    display: none;
+}
+
+.inputs input {
+    border: 0 !important;
+    border-radius: 0;
+    border-bottom: solid 2px var(--main-color) !important;
+}
+
+/* .inputs {
+    border-left: solid 2px lightblue;
+} */
+
+.inputs label::before {
+    content: '*';
+    color: red;
+    transform: translateY(-25%);
+    font-weight: bold; 
+}
+
+.image i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 35px;
+    cursor: pointer;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.image:hover i {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
