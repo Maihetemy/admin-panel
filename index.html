@@ -27,10 +27,13 @@
 
 <body>
     <div class="main-secreen p-2">
-        <div class="row">
-            <div class="col-3 mb-3">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">New User <i class="fa-solid fa-user"></i></button>
+        <div class="d-flex flex-nowrap justify-content-center mb-3">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalFade">New
+                User <i class="fa-solid fa-user"></i></button>
+            <div class="d-flex ms-2">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button type="button" class="btn btn-primary d-flex flex-nowrap align-items-center">Search <i
+                        class="fa-solid fa-magnifying-glass ms-1"></i></button>
             </div>
         </div>
         <div class="table-responsive">
@@ -49,10 +52,11 @@
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td><img src="images/WhatsApp Image 2024-12-25 at 23.11.23_755fa539.jpg" alt=""></td>
+                <tbody id="userDataRows">
+                    <!-- <tr>
+                        <th scope="row" class="index">1</th>
+                        <td data-bs-toggle="modal" data-bs-target="#userModal"><img
+                                src="images/WhatsApp Image 2024-12-25 at 23.11.23_755fa539.jpg" alt=""></td>
                         <td>Mai</td>
                         <td>22</td>
                         <td>Port Said</td>
@@ -61,12 +65,12 @@
                         <td>Software dev</td>
                         <td>30/12/2024</td>
                         <td>
-                            <button type="button" class="btn btn-success"><i class="fa-solid fa-eye"></i></button>
-                            <button type="button" class="btn btn-warning"><i
+                            <button type="button" class="btn btn-warning" id="updateBtn"><i
                                     class="fa-solid fa-pen-to-square"></i></button>
-                            <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            <button type="button" class="btn btn-danger" id="deleteBtn"><i
+                                    class="fa-solid fa-trash"></i></button>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -74,7 +78,7 @@
 
     <!-- Modal -->
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="modalFade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -85,17 +89,65 @@
                 <div class="modal-body">
                     <form class="row align-content-center" id="userForm">
                         <div class="col-lg-5 image">
-                            <img src="images/WhatsApp Image 2024-12-25 at 23.11.23_755fa539.jpg" class="w-100"
-                                accept="image/*" alt="">
+                            <img src="images/WhatsApp Image 2024-12-25 at 23.11.23_755fa539.jpg" class="w-100" alt="">
                             <label for="inputImage" class="upload">
-                                <input type="file" class="form-control" id="inputImage">
+                                <input type="file" class="form-control" id="userImage" accept="image/*">
                                 <i class="fa-solid fa-circle-plus"></i>
                             </label>
+                        </div>
+                        <div class="col-lg-7 inputs">
+                            <label class="d-flex align-items-center star">
+                                <input type="text" class="form-control mb-3" id="userName" placeholder="Name">
+                            </label>
 
+                            <label class="d-flex align-items-center star">
+                                <input type="number" class="form-control mb-3" id="userAge" placeholder="Age">
+                            </label>
+
+                            <label class="d-flex align-items-center star">
+                                <input type="text" class="form-control mb-3" id="userCity" placeholder="City">
+                            </label>
+
+                            <label class="d-flex align-items-center star">
+                                <input type="email" class="form-control mb-3" id="userEmail" placeholder="Email">
+                            </label>
+
+                            <label class="d-flex align-items-center star">
+                                <input type="text" class="form-control mb-3" id="userPhone" placeholder="Phone">
+                            </label>
+                            <label class="d-flex align-items-center star">
+                                <input type="text" class="form-control mb-3" id="userPost" placeholder="Post">
+                            </label>
+                            <label class="d-flex align-items-center star">
+                                <input type="date" class="form-control mb-3" id="userStartDate"
+                                    placeholder="Start Date">
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" form="userForm" class="btn btn-primary" id="addBtn">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =======user modal static ui=============== -->
+    <div class="modal fade" id="userModal">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-white px-4 align-items-center">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row align-content-center" id="userForm">
+                        <div class="col-lg-5 image">
+                            <img src="images/WhatsApp Image 2024-12-25 at 23.11.23_755fa539.jpg" class="w-100"
+                                accept="image/*" alt="">
                         </div>
                         <div class="col-lg-7 inputs">
                             <label class="d-flex align-items-center">
-                                <input type="text" class="form-control mb-3" id="inputName" placeholder="Name">
+                                <input class="form-control mb-3" id="inputName" placeholder="Name">
                             </label>
 
                             <label class="d-flex align-items-center">
@@ -119,12 +171,9 @@
                             <label class="d-flex align-items-center">
                                 <input type="date" class="form-control mb-3" id="inputDate" placeholder="Start Date">
                             </label>
-                            
+
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" form="userForm" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>

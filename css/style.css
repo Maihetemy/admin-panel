@@ -16,7 +16,6 @@ body {
 }
 
 
-
 /* admin screen =======================*/
 .table td img {
     width: 100px;
@@ -24,6 +23,10 @@ body {
 
 .table-responsive {
     overflow-x: auto !important;
+}
+
+#userDataRow .userImage {
+    cursor: pointer;
 }
 
 /* user modal =======================*/
@@ -49,11 +52,11 @@ body {
     border-left: solid 2px lightblue;
 } */
 
-.inputs label::before {
+.inputs .star::before {
     content: '*';
     color: red;
     transform: translateY(-25%);
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 .image i {
@@ -71,4 +74,8 @@ body {
 .image:hover i {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.1);
+}
+
+#userModal .inputs input {
+    background-color: transparent !important;
 }
