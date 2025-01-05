@@ -1,6 +1,6 @@
-
 // DOM SELECTORS============================================================
-const userImage = document.querySelector('#userImage'),
+const imgInput = document.querySelector('#imgInput'),
+    userImage = document.querySelector('#userImage'),
     userDataRows = document.querySelector('#userDataRows'),
     userName = document.querySelector('#userName'),
     userAge = document.querySelector('#userAge'),
@@ -20,18 +20,34 @@ let userList = [];
 for (let i = 0; i < userModal.length; i++) {
     userModal[i].disabled = true;
 }
+//IMAGE FILE FUNCTION
 
 // START FUNCTIONS===========================================================
 // ADD USER
 addBtn.addEventListener('click', () => {
-    console.log('hi form add btn');
     addUser();
 })
+
+let image = '';
+imgInput.onchange = (e) => {
+    if (imgInput.files[0].size <= 1000000) {
+        let fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            image = e.target.result;
+            userImage.src = e.target.result;
+        }
+        fileReader.readAsDataURL(imgInput.files[0])
+    }
+    else {
+        console.log('wrong img');
+    }
+}
+
 
 // ADD USERS
 addUser = () => {
     let user = {
-        userImage: userImage.value,
+        userImage: image ? image : '../images/default img.png',
         userName: userName.value,
         userAge: userAge.value,
         userCity: userCity.value,
@@ -42,7 +58,9 @@ addUser = () => {
     }
     userList.push(user);
     displayUsers(userList);
+    clear();
     console.log(userList);
+    console.log(user.userImage);
 
 }
 
@@ -54,7 +72,7 @@ displayUsers = (array) => {
         cartona += `<tr>
                         <th scope="row">${i + 1}</th>
                         <td data-bs-toggle="modal" data-bs-target="#userModal"><img
-                                src="images/WhatsApp Image 2024-12-25 at 23.11.23_755fa539.jpg" alt=""></td>
+                                src="${array[i].userImage}" alt=""></td>
                         <td>${array[i].userName}</td>
                         <td>${array[i].userAge}</td>
                         <td>${array[i].userCity}</td>
@@ -74,4 +92,16 @@ displayUsers = (array) => {
     userDataRows.innerHTML = cartona;
 
 }
-// console.log(deleteBtn, updateBtn, userStartDate, userPost, userPhone, userEmail, userCity, userAge, userName, userImage, index);
+
+//CLEAR FORM
+clear = () => {
+    image = '';
+    userImage.src = '../images/default img.png';
+    userName.value = null;
+    userAge.value = null;
+    userCity.value = null;
+    userEmail.value = null;
+    userPhone.value = null;
+    userPost.value = null;
+    userStartDate.value = null;
+}
