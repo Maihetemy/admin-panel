@@ -55,12 +55,17 @@ addBtn.addEventListener('click', () => {
 newUserBtn.addEventListener('click', () => {
     userModal.show();
 })
+closeBtn.addEventListener('click', () => {
+    userModal.hide();
+    clear();
+})
 
 
 // ADD USERS
 function addUser() {
     let user = {
-        image : image,
+        id: Math.random().toString(16).slice(2),
+        image: image,
         userImage: image || '../images/default img.png',
         userName: userName.value,
         userAge: userAge.value,
@@ -70,6 +75,8 @@ function addUser() {
         userPost: userPost.value,
         userStartDate: userStartDate.value,
     }
+    console.log(user.id);
+    
     userList.push(user);
     localStorage.setItem('Users', JSON.stringify(userList));
     console.log(localStorage.getItem("Users"));
@@ -95,8 +102,8 @@ function displayUsers(array) {
                         <td>${array[i].userPost}</td>
                         <td>${array[i].userStartDate}</td>
                         <td>
-                            <button type="button" onclick="setForm(${i})" class="btn btn-warning" id="updateBtn"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button type="button" onclick="deleteUser(${i})" class="btn btn-danger" id="deleteBtn"><i class="fa-solid fa-trash"></i></button>
+                            <button type="button" onclick="setForm('${array[i].id}')" class="btn btn-warning" id="updateBtn"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button type="button" onclick="deleteUser('${array[i].id}')" class="btn btn-danger" id="deleteBtn"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
@@ -107,6 +114,7 @@ function displayUsers(array) {
 
 //CLEAR FORM
 function clear() {
+    console.log('clear');
     image = '';
     userImage.src = '../images/default img.png';
     userName.value = null;
@@ -116,6 +124,8 @@ function clear() {
     userPhone.value = null;
     userPost.value = null;
     userStartDate.value = null;
+    addBtn.classList.remove('d-none');
+    updateDoneBtn.classList.replace('d-block', 'd-none');
 }
 
 
@@ -128,28 +138,41 @@ function scrollToBottom() {
 }
 
 // DELETE
-function deleteUser(index) {
-    userList.splice(index, 1);
-    localStorage.setItem('Users', JSON.stringify(userList));
-    displayUsers(userList);
+function deleteUser(id) {
+    console.log('delete');
+    console.log(id);
+    
+    for (let i = 0; i < userList.length; i++) {
+        if (userList[i].id === id) {
+            userList.splice(i, 1);
+            localStorage.setItem('Users', JSON.stringify(userList));
+            displayUsers(userList);
+            return;
+        }
+    }
 }
 
 //UPDATE USER
-function setForm(index) {
-    // console.log(index);
-    globalIndex = index;
+function setForm(id) {
+    let userIndex = userList.findIndex((user)=>{
+        return user.id === id;
+    });
+    console.log(userIndex);
+    globalIndex = userIndex;
     userModal.show();
-    userImage.src = userList[index].userImage;
-    userName.value = userList[index].userName;
-    userAge.value = userList[index].userAge;
-    userCity.value = userList[index].userCity;
-    userEmail.value = userList[index].userEmail;
-    userPhone.value = userList[index].userPhone;
-    userPost.value = userList[index].userPost;
-    userStartDate.value = userList[index].userStartDate;
+    userImage.src = userList[userIndex].userImage;
+    userName.value = userList[userIndex].userName;
+    userAge.value = userList[userIndex].userAge;
+    userCity.value = userList[userIndex].userCity;
+    userEmail.value = userList[userIndex].userEmail;
+    userPhone.value = userList[userIndex].userPhone;
+    userPost.value = userList[userIndex].userPost;
+    userStartDate.value = userList[userIndex].userStartDate;
     addBtn.classList.add('d-none');
-    updateDoneBtn.classList.remove('d-none', 'd.block');
+    updateDoneBtn.classList.replace('d-none', 'd-block');
 }
+
+
 function updateUser() {
     let user = {
         userImage: image || userList[globalIndex].userImage,
@@ -168,4 +191,23 @@ function updateUser() {
     displayUsers(userList);
 }
 
-
+function search(keyword) {
+    console.log(`Searching for: "${keyword}"`);
+    let arr = [], found = false;
+    if (keyword.length === 0) {
+        console.log('hii');
+        displayUsers(userList);
+    }
+    else {
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].userName.toLowerCase().trim().includes(keyword.toLowerCase().trim())) {
+                found = true;
+                arr.push(userList[i])
+            }
+            displayUsers(arr);
+        }
+        if (!found) {
+            displayUsers([]);
+        }
+    }
+}
