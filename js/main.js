@@ -10,19 +10,26 @@ const imgInput = document.querySelector('#imgInput'),
     userPost = document.querySelector('#userPost'),
     userStartDate = document.querySelector('#userStartDate'),
     updateBtn = document.querySelector('#updateBtn'),
+    updateDoneBtn = document.querySelector('#updateDoneBtn'),
     deleteBtn = document.querySelector('#deleteBtn'),
     addBtn = document.querySelector('#addBtn'),
-    userModal = document.querySelectorAll('#userModal .inputs input');
+    newUserBtn = document.querySelector('#newUserBtn'),
+    closeBtn = document.querySelector('.btn-close'),
+    userModal = new bootstrap.Modal(document.getElementById('userModal')),
+    userModalInputs = document.querySelectorAll('#userModalInputs .inputs input');
+
+let globalIndex;
 
 let userList = [];
+
 if (localStorage.getItem('Users') != null) {
     userList = JSON.parse(localStorage.getItem('Users'));
     displayUsers(userList);
 }
 
 //modify modal to suit user info display=====================================
-for (let i = 0; i < userModal.length; i++) {
-    userModal[i].disabled = true;
+for (let i = 0; i < userModalInputs.length; i++) {
+    userModalInputs[i].disabled = true;
 }
 
 
@@ -45,11 +52,15 @@ imgInput.onchange = (e) => {
 addBtn.addEventListener('click', () => {
     addUser();
 })
+newUserBtn.addEventListener('click', () => {
+    userModal.show();
+})
 
 
 // ADD USERS
 function addUser() {
     let user = {
+        image : image,
         userImage: image || '../images/default img.png',
         userName: userName.value,
         userAge: userAge.value,
@@ -74,7 +85,7 @@ function displayUsers(array) {
     for (let i = 0; i < array.length; i++) {
         cartona += `<tr>
                         <th scope="row">${i + 1}</th>
-                        <td data-bs-toggle="modal" data-bs-target="#userModal"><img
+                        <td data-bs-toggle="modal" data-bs-target="#userModalInputs"><img
                                 src="${array[i].userImage}" alt=""></td>
                         <td>${array[i].userName}</td>
                         <td>${array[i].userAge}</td>
@@ -84,7 +95,7 @@ function displayUsers(array) {
                         <td>${array[i].userPost}</td>
                         <td>${array[i].userStartDate}</td>
                         <td>
-                            <button type="button" class="btn btn-warning" id="updateBtn"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button type="button" onclick="setForm(${i})" class="btn btn-warning" id="updateBtn"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button type="button" onclick="deleteUser(${i})" class="btn btn-danger" id="deleteBtn"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
@@ -122,4 +133,39 @@ function deleteUser(index) {
     localStorage.setItem('Users', JSON.stringify(userList));
     displayUsers(userList);
 }
+
+//UPDATE USER
+function setForm(index) {
+    // console.log(index);
+    globalIndex = index;
+    userModal.show();
+    userImage.src = userList[index].userImage;
+    userName.value = userList[index].userName;
+    userAge.value = userList[index].userAge;
+    userCity.value = userList[index].userCity;
+    userEmail.value = userList[index].userEmail;
+    userPhone.value = userList[index].userPhone;
+    userPost.value = userList[index].userPost;
+    userStartDate.value = userList[index].userStartDate;
+    addBtn.classList.add('d-none');
+    updateDoneBtn.classList.remove('d-none', 'd.block');
+}
+function updateUser() {
+    let user = {
+        userImage: image || userList[globalIndex].userImage,
+        userName: userName.value,
+        userAge: userAge.value,
+        userCity: userCity.value,
+        userEmail: userEmail.value,
+        userPhone: userPhone.value,
+        userPost: userPost.value,
+        userStartDate: userStartDate.value,
+    }
+    userList.splice(globalIndex, 1, user);
+    localStorage.setItem('Users', JSON.stringify(userList));
+    clear();
+    userModal.hide();
+    displayUsers(userList);
+}
+
 

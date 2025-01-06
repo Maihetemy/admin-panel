@@ -28,11 +28,11 @@
 <body>
     <div class="main-secreen p-2">
         <div class="d-flex flex-nowrap justify-content-center mb-3">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalFade">New
+            <button type="button" class="btn btn-success" id="newUserBtn">New
                 User <i class="fa-solid fa-user"></i></button>
             <div class="d-flex ms-2">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button type="button" class="btn btn-primary d-flex flex-nowrap align-items-center">Search <i
+                <button type="button" oninput="" class="btn btn-primary d-flex flex-nowrap align-items-center">Search <i
                         class="fa-solid fa-magnifying-glass ms-1"></i></button>
             </div>
         </div>
@@ -60,7 +60,7 @@
 
     <!-- Modal -->
 
-    <div class="modal fade" id="modalFade">
+    <div class="modal fade" id="userModal">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header main-color-bg text-white px-4 align-items-center">
@@ -108,13 +108,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" form="userForm" class="btn btn-primary" id="addBtn" data-bs-dismiss="modal" aria-label="Close">Add</button>
+                    <button type="button" form="userForm" class="btn btn-warning d-none" onclick="updateUser();" id="updateDoneBtn" data-bs-dismiss="modal" aria-label="Close">Update</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- =======user modal static ui=============== -->
-    <div class="modal fade" id="userModal">
+    <div class="modal fade" id="userModalShow">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header text-white px-4 align-items-center">
