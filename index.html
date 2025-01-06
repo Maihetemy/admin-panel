@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-striped table-bordered align-middle text-center table-hover">
+            <table class="table table-striped table-bordered align-middle text-center">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -53,24 +53,6 @@
                     </tr>
                 </thead>
                 <tbody id="userDataRows">
-                    <!-- <tr>
-                        <th scope="row" class="index">1</th>
-                        <td data-bs-toggle="modal" data-bs-target="#userModal"><img
-                                src="images/WhatsApp Image 2024-12-25 at 23.11.23_755fa539.jpg" alt=""></td>
-                        <td>Mai</td>
-                        <td>22</td>
-                        <td>Port Said</td>
-                        <td>maihetemy@gmail.com</td>
-                        <td>01210670664</td>
-                        <td>Software dev</td>
-                        <td>30/12/2024</td>
-                        <td>
-                            <button type="button" class="btn btn-warning" id="updateBtn"><i
-                                    class="fa-solid fa-pen-to-square"></i></button>
-                            <button type="button" class="btn btn-danger" id="deleteBtn"><i
-                                    class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -136,7 +118,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header text-white px-4 align-items-center">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" onclick="clear();" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row align-content-center" id="userForm">

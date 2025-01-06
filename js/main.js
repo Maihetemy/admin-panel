@@ -15,39 +15,42 @@ const imgInput = document.querySelector('#imgInput'),
     userModal = document.querySelectorAll('#userModal .inputs input');
 
 let userList = [];
+if (localStorage.getItem('Users') != null) {
+    userList = JSON.parse(localStorage.getItem('Users'));
+    displayUsers(userList);
+}
 
 //modify modal to suit user info display=====================================
 for (let i = 0; i < userModal.length; i++) {
     userModal[i].disabled = true;
 }
-//IMAGE FILE FUNCTION
 
-// START FUNCTIONS===========================================================
-// ADD USER
+
+//IMAGE FILE FUNCTION
+let image = '';
+imgInput.onchange = (e) => {
+    if (imgInput.files[0].size <= 1000000) {
+        const fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            image = e.target.result;
+            userImage.src = e.target.result;
+        };
+        fileReader.readAsDataURL(imgInput.files[0]);
+    } else {
+        alert('Image size must be 1MB or less.');
+    }
+};
+
+// ADD USER BTN
 addBtn.addEventListener('click', () => {
     addUser();
 })
 
-let image = '';
-imgInput.onchange = (e) => {
-    if (imgInput.files[0].size <= 1000000) {
-        let fileReader = new FileReader();
-        fileReader.onload = (e) => {
-            image = e.target.result;
-            userImage.src = e.target.result;
-        }
-        fileReader.readAsDataURL(imgInput.files[0])
-    }
-    else {
-        console.log('wrong img');
-    }
-}
-
 
 // ADD USERS
-addUser = () => {
+function addUser() {
     let user = {
-        userImage: image ? image : '../images/default img.png',
+        userImage: image || '../images/default img.png',
         userName: userName.value,
         userAge: userAge.value,
         userCity: userCity.value,
@@ -57,16 +60,16 @@ addUser = () => {
         userStartDate: userStartDate.value,
     }
     userList.push(user);
+    localStorage.setItem('Users', JSON.stringify(userList));
+    console.log(localStorage.getItem("Users"));
     displayUsers(userList);
     clear();
-    console.log(userList);
-    console.log(user.userImage);
-
+    scrollToBottom();
 }
 
 
 // DISPLAY USERS
-displayUsers = (array) => {
+function displayUsers(array) {
     let cartona = ``;
     for (let i = 0; i < array.length; i++) {
         cartona += `<tr>
@@ -81,20 +84,18 @@ displayUsers = (array) => {
                         <td>${array[i].userPost}</td>
                         <td>${array[i].userStartDate}</td>
                         <td>
-                            <button type="button" class="btn btn-warning" id="updateBtn"><i
-                                    class="fa-solid fa-pen-to-square"></i></button>
-                            <button type="button" class="btn btn-danger" id="deleteBtn"><i
-                                    class="fa-solid fa-trash"></i></button>
+                            <button type="button" class="btn btn-warning" id="updateBtn"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button type="button" onclick="deleteUser(${i})" class="btn btn-danger" id="deleteBtn"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
     }
     userDataRows.innerHTML = cartona;
-
 }
 
+
 //CLEAR FORM
-clear = () => {
+function clear() {
     image = '';
     userImage.src = '../images/default img.png';
     userName.value = null;
@@ -105,3 +106,20 @@ clear = () => {
     userPost.value = null;
     userStartDate.value = null;
 }
+
+
+//SCROLL TO BUTTOM
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+    });
+}
+
+// DELETE
+function deleteUser(index) {
+    userList.splice(index, 1);
+    localStorage.setItem('Users', JSON.stringify(userList));
+    displayUsers(userList);
+}
+
