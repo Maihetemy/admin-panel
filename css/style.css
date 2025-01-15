@@ -48,15 +48,21 @@ body {
     border-bottom: solid 2px var(--main-color) !important;
 }
 
-/* .inputs {
-    border-left: solid 2px lightblue;
-} */
 
 .inputs .star::before {
     content: '*';
     color: red;
     transform: translateY(-25%);
     font-weight: bold;
+}
+
+.modal input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.table-image {
+    cursor: pointer;
 }
 
 .image i {

@@ -19,6 +19,7 @@ const imgInput = document.querySelector('#imgInput'),
     userModalInputs = document.querySelectorAll('#userModalInputs .inputs input');
 
 let globalIndex;
+let globalId;
 
 let userList = [];
 
@@ -92,7 +93,7 @@ function displayUsers(array) {
     for (let i = 0; i < array.length; i++) {
         cartona += `<tr>
                         <th scope="row">${i + 1}</th>
-                        <td data-bs-toggle="modal" data-bs-target="#userModalInputs"><img
+                        <td class="table-image" data-bs-toggle="modal" data-bs-target="#userModalInputs"><img
                                 src="${array[i].userImage}" alt=""></td>
                         <td>${array[i].userName}</td>
                         <td>${array[i].userAge}</td>
@@ -159,6 +160,7 @@ function setForm(id) {
     });
     console.log(userIndex);
     globalIndex = userIndex;
+    globalId = id;
     userModal.show();
     userImage.src = userList[userIndex].userImage;
     userName.value = userList[userIndex].userName;
@@ -175,6 +177,7 @@ function setForm(id) {
 
 function updateUser() {
     let user = {
+        id: globalId,
         userImage: image || userList[globalIndex].userImage,
         userName: userName.value,
         userAge: userAge.value,

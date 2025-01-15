@@ -25,17 +25,26 @@
     <link rel="stylesheet" href="css/media.css">
 </head>
 
-<body>
-    <div class="main-secreen p-2">
-        <div class="d-flex flex-nowrap justify-content-center mb-3">
-            <button type="button" class="btn btn-success" id="newUserBtn">New
-                User <i class="fa-solid fa-user"></i></button>
-            <div class="d-flex ms-2">
-                <input class="form-control me-2" oninput="search(this.value);" type="search" placeholder="Search" aria-label="Search">
-                <button type="button" class="btn btn-primary d-flex flex-nowrap align-items-center">Search <i
-                        class="fa-solid fa-magnifying-glass ms-1"></i></button>
+<body class="px-lg-5">
+    <nav class="navbar navbar-expand-lg fixed-top d-flex bg-body-tertiary mb-5">
+        <div class="container-fluid px-lg-5">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand my-1 fw-bolder" href="#">Admin Panal</a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+                <div class="d-flex">
+                    <input class="form-control me-3 my-1" oninput="search(this.value);" type="search" placeholder="Search"
+                        aria-label="Search">
+                </div>
+                <button type="button" class="btn btn-primary my-1" id="newUserBtn">New
+                    User <i class="fa-solid fa-user"></i></button>
             </div>
         </div>
+    </nav>
+    </nav>
+    <div class="main-secreen mt-5 p-2 pt-4">
         <div class="table-responsive">
             <table class="table table-striped table-bordered align-middle text-center">
                 <thead>
@@ -68,8 +77,8 @@
                     <button type="button" class="btn-close" onclick="clear();"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row align-content-center" id="userForm">
-                        <div class="col-lg-5 image">
+                    <form class="row align-content-center justify-content-center" id="userForm">
+                        <div class="col-5 image">
                             <img src="images/default img.png" id="userImage" class="w-100" alt="">
                             <label for="imgInput" class="upload">
                                 <input type="file" class="form-control" id="imgInput" accept="image/*">
@@ -107,8 +116,10 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" form="userForm" class="btn btn-primary" id="addBtn" data-bs-dismiss="modal" aria-label="Close">Add</button>
-                    <button type="button" form="userForm" class="btn btn-warning d-none" onclick="updateUser();" id="updateDoneBtn" data-bs-dismiss="modal" aria-label="Close">Update</button>
+                    <button type="button" form="userForm" class="btn btn-primary" id="addBtn" data-bs-dismiss="modal"
+                        aria-label="Close">Add</button>
+                    <button type="button" form="userForm" class="btn btn-warning d-none" onclick="updateUser();"
+                        id="updateDoneBtn" data-bs-dismiss="modal" aria-label="Close">Update</button>
                 </div>
             </div>
         </div>
