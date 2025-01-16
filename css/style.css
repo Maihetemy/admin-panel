@@ -56,7 +56,7 @@ body {
     font-weight: bold;
 }
 
-.modal input:focus {
+.modal input:focus, .btn-close:focus{
     outline: none !important;
     box-shadow: none !important;
 }
