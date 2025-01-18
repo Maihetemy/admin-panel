@@ -67,7 +67,7 @@ closeBtn.addEventListener('click', () => {
 const userModalElement = document.querySelector('.modal');
 
 userModalElement.addEventListener('hidden.bs.modal', () => {
-    clear(); 
+    clear();
 });
 
 
@@ -92,6 +92,7 @@ function addUser() {
     console.log(localStorage.getItem("Users"));
     displayUsers(userList);
     clear();
+    customSuccessAlert('Added is successfully');
     scrollToBottom();
 }
 
@@ -152,15 +153,53 @@ function scrollToBottom() {
 function deleteUser(id) {
     console.log('delete');
     console.log(id);
-
-    for (let i = 0; i < userList.length; i++) {
-        if (userList[i].id === id) {
-            userList.splice(i, 1);
-            localStorage.setItem('Users', JSON.stringify(userList));
-            displayUsers(userList);
-            return;
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            for (let i = 0; i < userList.length; i++) {
+                if (userList[i].id === id) {
+                    userList.splice(i, 1);
+                    localStorage.setItem('Users', JSON.stringify(userList));
+                    displayUsers(userList);
+                }
+            }
+            customSuccessAlert('The user has been deleted.');
+        } else {
+            customSuccessAlert('The user data is safe.');
         }
-    }
+    });
+}
+
+function customSuccessAlert(message) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1300,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    Toast.fire({
+        icon: "success",
+        title: `${message}`,
+    });
 }
 
 //UPDATE USER
