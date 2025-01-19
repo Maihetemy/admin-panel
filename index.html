@@ -40,6 +40,9 @@
                 </div>
                 <button type="button" class="btn btn-primary my-1" id="newUserBtn">New
                     User <i class="fa-solid fa-user"></i></button>
+                <button id="themeToggle" class="ms-4" style="font-size: 24px; background: none; border: none; cursor: pointer;">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -67,7 +70,6 @@
     </div>
 
     <!-- Modal -->
-
     <div class="modal fade" id="userModal">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -128,14 +130,13 @@
     <div class="modal fade" id="userModalShow">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header text-white px-4 align-items-center">
+                <div class="modal-header px-4 align-items-center">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row align-content-center" id="userForm">
                         <div class="col-lg-5 image">
-                            <img src="../images/default img.png" class="w-100"
-                                accept="image/*" alt="">
+                            <img src="../images/default img.png" class="w-100" accept="image/*" alt="">
                         </div>
                         <div class="col-lg-7 inputs">
                             <label class="d-flex align-items-center">

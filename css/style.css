@@ -1,6 +1,28 @@
 /* general =======================*/
 :root {
     --main-color: rgb(21, 83, 255);
+    --placeholder-color: #343a40;
+}
+
+.dark-mode {
+    --placeholder-color: #ffffff;
+}
+
+.dark-theme {
+    background-color: #343a40 !important;
+    color: #fff !important;
+}
+
+.light-theme {
+    background-color: #f8f9fa !important;
+    color: #212529 !important;
+}
+
+
+input::placeholder,
+input {
+    color: var(--placeholder-color) !important;
+    transition: color 0.3s ease !important;
 }
 
 .main-color {
@@ -14,7 +36,6 @@
 body {
     overflow-x: hidden;
 }
-
 
 /* admin screen =======================*/
 .table td img {
@@ -48,15 +69,15 @@ body {
     border-bottom: solid 2px var(--main-color) !important;
 }
 
-
 .inputs .star::before {
-    content: '*';
+    content: "*";
     color: red;
     transform: translateY(-25%);
     font-weight: bold;
 }
 
-.modal input:focus, .btn-close:focus{
+.modal input:focus,
+.btn-close:focus {
     outline: none !important;
     box-shadow: none !important;
 }
@@ -82,6 +103,6 @@ body {
     transform: translate(-50%, -50%) scale(1.1);
 }
 
-#userModal .inputs input {
+.inputs input {
     background-color: transparent !important;
 }
