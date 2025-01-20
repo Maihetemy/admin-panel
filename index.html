@@ -34,13 +34,39 @@
             </button>
             <a class="navbar-brand my-1 fw-bolder" href="#">Admin Panal</a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+
+                <!-- SEARCH -->
                 <div class="d-flex">
-                    <input class="form-control me-3 my-1" oninput="search(this.value);" type="search"
+                    <input class="form-control me-2 my-1" oninput="search(this.value);" type="search"
                         placeholder="Search" aria-label="Search">
                 </div>
+
+                <!-- ADD NEW USER -->
                 <button type="button" class="btn btn-primary my-1" id="newUserBtn">New
                     User <i class="fa-solid fa-user"></i></button>
-                <button id="themeToggle" class="ms-4" style="font-size: 24px; background: none; border: none; cursor: pointer;">
+
+                <!-- SORT -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary mx-2 dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        SORT
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="sort">
+                        <li data-value="userName"><button class="dropdown-item" type="button">Name</button></li>
+                        <li data-value="userStartDate"><button class="dropdown-item" type="button">Date</button></li>
+                        <li data-value="userEmail"><button class="dropdown-item" type="button">Email</button></li>
+                        <li data-value="userAge"><button class="dropdown-item" type="button">Age</button></li>
+                        <li data-value="userCity"><button class="dropdown-item" type="button">City</button></li>
+                        <li data-value="userPost"><button class="dropdown-item" type="button">Post</button></li>
+                    </ul>
+                </div>
+
+
+
+
+                <!-- DARK MODE -->
+                <button id="themeToggle" class="ms-4"
+                    style="font-size: 24px; background: none; border: none; cursor: pointer;">
                     <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
             </div>

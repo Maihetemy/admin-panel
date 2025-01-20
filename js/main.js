@@ -342,3 +342,52 @@ themeToggle.addEventListener("click", () => {
     localStorage.setItem('dark-mode', isDarkMode);
     darkMode(isDarkMode);
 });
+
+
+// SORT
+
+const sortBtn = document.querySelector("#sort");
+sortBtn.addEventListener('click', (e) => {
+    const targetValue = e.target.closest('li').getAttribute('data-value');
+    sorting(targetValue);
+
+})
+
+function sorting(targetValue) {
+    console.log(typeof (targetValue));
+    if (targetValue === 'userName' || targetValue === 'userEmail' || targetValue === 'userCity' || targetValue === 'userPost') {
+        userList.sort((a, b) => {
+
+            const nameA = a[targetValue];
+            const nameB = b[targetValue]; // ignore upper and lowercase
+
+            console.log(nameA, nameB);
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+
+            // names must be equal
+            return 0;
+        });
+    }
+    else if (targetValue === 'userStartDate') {
+        console.log('date');
+        userList.sort((a, b) => {
+            return new Date(a[targetValue]) - new Date(b[targetValue]);
+        });
+
+    }
+    else if (targetValue === 'userAge') {
+        console.log('age');
+        userList.sort((a, b) => {
+            return a[targetValue] - b[targetValue];
+        });
+    }
+
+    localStorage.setItem("Users", JSON.stringify(userList));
+    displayUsers(userList);
+}
+
