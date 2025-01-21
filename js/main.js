@@ -55,9 +55,13 @@ imgInput.onchange = (e) => {
 };
 
 // ADD USER BTN
+
 addBtn.addEventListener("click", () => {
     addUser();
 });
+
+
+
 // NEW USER BTN
 newUserBtn.addEventListener("click", () => {
     userModal.show();
@@ -69,28 +73,39 @@ closeBtn.addEventListener("click", () => {
 });
 
 // ADD USERS
-function addUser() {
-    let user = {
-        id: Math.random().toString(16).slice(2),
-        image: image,
-        userImage: image || "../images/default img.png",
-        userName: userName.value,
-        userAge: userAge.value,
-        userCity: userCity.value,
-        userEmail: userEmail.value,
-        userPhone: userPhone.value,
-        userPost: userPost.value,
-        userStartDate: userStartDate.value,
-    };
-    console.log(user.id);
 
-    userList.push(user);
-    localStorage.setItem("Users", JSON.stringify(userList));
-    console.log(localStorage.getItem("Users"));
-    displayUsers(userList);
-    clear();
-    customSuccessAlert("Added is successfully");
-    scrollToBottom();
+function addUser() {
+    if (validation(userName) && validation(userEmail) && validation(userPost)) {
+        // addBtn.disabled = true;
+        let user = {
+            id: Math.random().toString(16).slice(2),
+            image: image,
+            userImage: image || "../images/default img.png",
+            userName: userName.value,
+            userAge: userAge.value,
+            userCity: userCity.value,
+            userEmail: userEmail.value,
+            userPhone: userPhone.value,
+            userPost: userPost.value,
+            userStartDate: userStartDate.value,
+        };
+        console.log(user.id);
+
+        userList.push(user);
+        localStorage.setItem("Users", JSON.stringify(userList));
+        addBtn.setAttribute('data-bs-dismiss', 'modal');
+        console.log(localStorage.getItem("Users"));
+        displayUsers(userList);
+        clear();
+        customSuccessAlert("Added is successfully");
+        scrollToBottom();
+    }
+    else {
+        addBtn.disabled = false;
+        if (validation(userName) === false) document.querySelector(`.userName`).classList.replace('d-none', 'd-block');
+        if (validation(userEmail) === false) document.querySelector(`.userEmail`).classList.replace('d-none', 'd-block');
+        if (validation(userPost) === false) document.querySelector(`.userPost`).classList.replace('d-none', 'd-block');
+    }
 }
 
 // DISPLAY USERS
@@ -139,6 +154,14 @@ function clear() {
     );
     addBtn.classList.remove("d-none");
     updateDoneBtn.classList.replace("d-block", "d-none");
+
+    userName.classList.remove('is-valid', 'is-invalid');
+    userEmail.classList.remove('is-valid', 'is-invalid');
+    userPost.classList.remove('is-valid', 'is-invalid');
+    document.querySelector(`.userName`).classList.replace('d-block', 'd-none');
+    document.querySelector(`.userEmail`).classList.replace('d-block', 'd-none');
+    document.querySelector(`.userPost`).classList.replace('d-block', 'd-none');
+
 }
 
 //SCROLL TO BUTTOM
@@ -285,7 +308,7 @@ function search(keyword) {
 function customSuccessAlert(message) {
     const Toast = Swal.mixin({
         toast: true,
-        position: "top-end",
+        position: "top",
         showConfirmButton: false,
         timer: 1300,
         timerProgressBar: true,
@@ -389,5 +412,27 @@ function sorting(targetValue) {
 
     localStorage.setItem("Users", JSON.stringify(userList));
     displayUsers(userList);
+    customSuccessAlert('Users sorted!')
 }
 
+
+// VALIDATION
+function validation(user) {
+    const regex = {
+        userEmail: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        userName: /^[A-Za-z][A-Za-z0-9 ]*$/,
+        userPost: /^[A-Za-z][A-Za-z0-9 ]*$/,
+    }
+    if (regex[user.id].test(user.value)) {
+        document.querySelector(`.${user.id}`).classList.replace('d-block', 'd-none');
+        user.classList.add('is-valid');
+        user.classList.remove('is-invalid');
+        return true;
+    }
+    else {
+        document.querySelector(`.${user.id}`).classList.replace('d-none', 'd-block');
+        user.classList.add('is-invalid');
+        user.classList.remove('is-valid');
+        return false
+    };
+}

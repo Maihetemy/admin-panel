@@ -114,28 +114,38 @@
                         </div>
                         <div class="col-lg-7 inputs">
                             <label class="d-flex align-items-center star">
-                                <input type="text" class="form-control mb-3" id="userName" placeholder="Name">
+                                <input type="text" oninput="validation(this);" class="form-control mb-3" id="userName"
+                                    placeholder="Name">
                             </label>
-
-                            <label class="d-flex align-items-center star">
+                            <div class="alert alert-danger py-2 d-none userName" role="alert">
+                                A simple danger alert—check it out!
+                            </div>
+                            <label class="d-flex align-items-center">
                                 <input type="number" class="form-control mb-3" id="userAge" placeholder="Age">
                             </label>
 
-                            <label class="d-flex align-items-center star">
+                            <label class="d-flex align-items-center">
                                 <input type="text" class="form-control mb-3" id="userCity" placeholder="City">
                             </label>
 
                             <label class="d-flex align-items-center star">
-                                <input type="email" class="form-control mb-3" id="userEmail" placeholder="Email">
+                                <input type="email" oninput="validation(this);" class="form-control mb-3" id="userEmail"
+                                    placeholder="Email">
                             </label>
-
-                            <label class="d-flex align-items-center star">
+                            <div class="alert alert-danger py-2 d-none userEmail" role="alert">
+                                A simple danger alert—check it out!
+                            </div>
+                            <label class="d-flex align-items-center">
                                 <input type="text" class="form-control mb-3" id="userPhone" placeholder="Phone">
                             </label>
-                            <label class="d-flex align-items-center star">
-                                <input type="text" class="form-control mb-3" id="userPost" placeholder="Post">
+                            <label class="d-flex align-items-center star ">
+                                <input type="text" oninput="validation(this);" class="form-control mb-3" id="userPost"
+                                    placeholder="Post">
                             </label>
-                            <label class="d-flex align-items-center star">
+                            <div class="alert alert-danger py-2 d-none userPost" role="alert">
+                                A simple danger alert—check it out!
+                            </div>
+                            <label class="d-flex align-items-center">
                                 <input type="date" class="form-control mb-3" id="userStartDate"
                                     placeholder="Start Date">
                             </label>
