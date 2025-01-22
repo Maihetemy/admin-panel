@@ -80,7 +80,7 @@ function addUser() {
         let user = {
             id: Math.random().toString(16).slice(2),
             image: image,
-            userImage: image || "../images/default img.png",
+            userImage: image || "./images/default img.png",
             userName: userName.value,
             userAge: userAge.value,
             userCity: userCity.value,
@@ -140,7 +140,7 @@ function displayUsers(array) {
 function clear() {
     console.log("clear");
     image = "";
-    userImage.src = "../images/default img.png";
+    userImage.src = "./images/default img.png";
     userName.value = null;
     userAge.value = null;
     userCity.value = null;
@@ -241,7 +241,7 @@ function showStaticModel(id) {
     inputs[6].value = userList[userIndex].userStartDate;
 
     document.querySelector("#userModalShow img").src =
-        userList[userIndex].userImage || "../images/default img.png";
+        userList[userIndex].userImage || "./images/default img.png";
 }
 
 // SHOW DATA IN THE STATIC MODAL
@@ -368,7 +368,6 @@ themeToggle.addEventListener("click", () => {
 
 
 // SORT
-
 const sortBtn = document.querySelector("#sort");
 sortBtn.addEventListener('click', (e) => {
     const targetValue = e.target.closest('li').getAttribute('data-value');
